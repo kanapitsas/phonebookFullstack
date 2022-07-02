@@ -1,5 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 
 // Load the database
@@ -13,6 +14,9 @@ app.use(express.json())
 // http logging using morgan
 morgan.token('data', (req, _res) => JSON.stringify(req.body)) // new token for body data
 app.use(morgan('method :url :status :res[content-length] - :response-time ms :data')) 
+
+// cors
+app.use(cors())
 
 app.get('/', (_req, res) => {
   res.send('Phonebook backend')
