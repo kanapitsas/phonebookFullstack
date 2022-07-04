@@ -7,6 +7,9 @@ const app = express()
 // for json parsing
 app.use(express.json())
 
+// static serving
+app.use(express.static('build'))
+
 // http logging using morgan
 morgan.token('data', (req, _res) => JSON.stringify(req.body)) // new token for body data
 app.use(morgan('method :url :status :res[content-length] - :response-time ms :data')) 
