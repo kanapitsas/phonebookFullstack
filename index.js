@@ -3,11 +3,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 const app = express()
 
-// Load the database
-let persons = require('./db.json')
-let maxId = persons.reduce((prev, p) => Math.max(prev, p.id), 0)
-const newId = () => ++maxId
-
 // for json parsing
 app.use(express.json())
 
@@ -17,6 +12,11 @@ app.use(morgan('method :url :status :res[content-length] - :response-time ms :da
 
 // cors
 app.use(cors())
+
+// Load the database
+let persons = require('./db.json')
+let maxId = persons.reduce((prev, p) => Math.max(prev, p.id), 0)
+const newId = () => ++maxId
 
 app.get('/', (_req, res) => {
   res.send('Phonebook backend')
